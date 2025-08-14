@@ -47,7 +47,7 @@ async function scrapeDribbbleImages() {
     console.log('Сбор и обработка изображений...');
     const imagesData = await page.$$eval(
       'li.shot-thumbnail', 
-      (shots) => shots.slice(0, 4).map(shot => {
+      (shots) => shots.slice(0, 22).map(shot => {
         const img = shot.querySelector('div figure img');
         const src = img ? (img.getAttribute('data-src') || img.src) : null;
         const cleanUrl = src ? src.split('?')[0] : null;
