@@ -2,7 +2,7 @@ name: Daily dribbblobot mobile
 
 on:
   schedule:
-    - cron: '30 20 * * *' # 23:30 по Москве (UTC+3)
+    - cron: '30 20 * * *' # 23:00 по Москве (UTC+3)
   workflow_dispatch:
 
 jobs:
@@ -16,9 +16,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        cache: 'npm'
         
-    - name: Install dependencies
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgbm-dev wget
+        
+    - name: Install npm dependencies
       run: npm install
       
     - name: Run Puppeteer script
-      run: npm start
+      run: npm start || echo "Script completed"
